@@ -49,7 +49,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       customerId = stripeCustomer.id
     }
 
-    // console.log('customerId', {customerId})
 
     const stripeCheckoutSession = await stripe.checkout.sessions.create({
       customer: customerId,
@@ -64,7 +63,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       cancel_url: process.env.STRIPE_CANCEL_URL
     })
 
-    console.log({stripeCheckoutSession})
     return res.status(200).json({ sessionId: stripeCheckoutSession.id })
   } else {
     res.setHeader('Allow', 'POST'); 
